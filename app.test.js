@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import { Ship } from "./src/components/Ship";
+import { GameBoard } from "./src/components/GameBoard";
 
 describe("Test ship factory function", () => {
   const ship = Ship(1);
@@ -29,3 +30,36 @@ describe("Test ship factory function", () => {
   });
 });
 
+describe.only("Check GameBoard factory function", () => {
+  const gameBoard = GameBoard();
+  const gameBoardArr = gameBoard.createGameBoard();
+  test("check GameBoard instance", () => {
+    expect(gameBoard).toEqual({
+      createGameBoard: expect.any(Function),
+      getGameBoard: expect.any(Function),
+      placeShip: expect.any(Function),
+    });
+  });
+
+  test("check GameBoard array", () => {
+    expect(gameBoardArr).toEqual(expect.any(Array));
+  });
+
+  test("check outer array length", () => {
+    expect(gameBoardArr).toHaveLength(10);
+  });
+
+  test("check inner array length", () => {
+    gameBoardArr.forEach((arr) => {
+      expect(arr).toHaveLength(10);
+    });
+  });
+
+  test("place first ship", () => {
+    expect(gameBoard.placeShip(Ship(3), [1, 2])).toBeTruthy;
+  });
+
+  test("check the coordinates duplication", () => {
+    expect(gameBoard.placeShip(Ship(3), [1, 2])).not.toBeTruthy;
+  });
+});
