@@ -1,6 +1,8 @@
 const GameBoard = () => {
   const coordinatesArr = [];
   const missedShotsArr = [];
+  const ships = [];
+
   function createGameBoard() {
     for (let i = 0; i < 10; i++) {
       const arr = [];
@@ -15,16 +17,19 @@ const GameBoard = () => {
   const getGameBoard = () => coordinatesArr;
 
   function placeShip(ship = {}, coordinates = []) {
+    
     const [x, y] = coordinates;
-
+    
     const slicedArr = coordinatesArr[x].slice(y);
     if (
       slicedArr.length >= ship.length &&
       slicedArr.every((item) => item == null)
-    ) {
-      for (let i = 0; i < ship.length; i++) {
-        coordinatesArr[x][y + i] = ship
-      }
+      ) {
+        for (let i = 0; i < ship.length; i++) {
+          coordinatesArr[x][y + i] = ship
+        }
+
+      ships.push(ship);
       return true;
     }
     return false;
@@ -43,6 +48,15 @@ const GameBoard = () => {
 
   const missedShots = () => missedShotsArr; 
 
-  return { createGameBoard, getGameBoard, placeShip, receiveAttack, missedShots };
+  const allShipsSunk = () => {
+    if(ships.every(ship => ship.isSunk())){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  return { createGameBoard, getGameBoard, placeShip, receiveAttack, missedShots, allShipsSunk };
 };
 export { GameBoard };
