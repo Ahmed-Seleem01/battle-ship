@@ -39,7 +39,8 @@ describe.only("Check GameBoard factory function", () => {
       getGameBoard: expect.any(Function),
       placeShip: expect.any(Function),
       receiveAttack: expect.any(Function),
-      missedShots: expect.any(Function)
+      missedShots: expect.any(Function),
+      allShipsSunk: expect.any(Function)
     });
   });
 
@@ -75,5 +76,14 @@ describe.only("Check GameBoard factory function", () => {
 
   test("display missed shots", () => {
     expect(gameBoard.missedShots()).toEqual(expect.any(Array));
+  });
+
+  test("check if the all ships are not sunk", () => {
+    expect(gameBoard.allShipsSunk()).toBeFalsy();
+  });
+
+  test("check if the all ships are sunk", () => {
+    gameBoard.receiveAttack([1,3]);
+    expect(gameBoard.allShipsSunk()).toBeTruthy();
   });
 });
