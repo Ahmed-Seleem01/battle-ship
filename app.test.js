@@ -64,11 +64,11 @@ describe.only("Check GameBoard factory function", () => {
     expect(gameBoard.placeShip(Ship(2), [1, 2])).toBeFalsy();
   });
 
-  test("check the coordinates duplication", () => {
+  test("check if the shot is a hit", () => {
     expect(gameBoard.receiveAttack([1, 2])).toBeTruthy();
   });
 
-  test("check the coordinates duplication", () => {
+  test("check if the shot is missed", () => {
     expect(gameBoard.receiveAttack([1, 5])).toBeFalsy();
   });
 });
