@@ -38,6 +38,7 @@ describe.only("Check GameBoard factory function", () => {
       createGameBoard: expect.any(Function),
       getGameBoard: expect.any(Function),
       placeShip: expect.any(Function),
+      receiveAttack: expect.any(Function)
     });
   });
 
@@ -61,5 +62,13 @@ describe.only("Check GameBoard factory function", () => {
 
   test("check the coordinates duplication", () => {
     expect(gameBoard.placeShip(Ship(2), [1, 2])).toBeFalsy();
+  });
+
+  test("check the coordinates duplication", () => {
+    expect(gameBoard.receiveAttack([1, 2])).toBeTruthy();
+  });
+
+  test("check the coordinates duplication", () => {
+    expect(gameBoard.receiveAttack([1, 5])).toBeFalsy();
   });
 });
