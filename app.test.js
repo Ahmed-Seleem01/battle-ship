@@ -56,10 +56,10 @@ describe.only("Check GameBoard factory function", () => {
   });
 
   test("place first ship", () => {
-    expect(gameBoard.placeShip(Ship(3), [1, 2])).toBeTruthy;
+    expect(gameBoard.placeShip(Ship(2), [1, 2])).toBeTruthy();
   });
 
   test("check the coordinates duplication", () => {
-    expect(gameBoard.placeShip(Ship(3), [1, 2])).not.toBeTruthy;
+    expect(gameBoard.placeShip(Ship(2), [1, 2])).toBeFalsy();
   });
 });
