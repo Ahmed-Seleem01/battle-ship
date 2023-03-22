@@ -38,7 +38,8 @@ describe.only("Check GameBoard factory function", () => {
       createGameBoard: expect.any(Function),
       getGameBoard: expect.any(Function),
       placeShip: expect.any(Function),
-      receiveAttack: expect.any(Function)
+      receiveAttack: expect.any(Function),
+      missedShots: expect.any(Function)
     });
   });
 
@@ -70,5 +71,9 @@ describe.only("Check GameBoard factory function", () => {
 
   test("check if the shot is missed", () => {
     expect(gameBoard.receiveAttack([1, 5])).toBeFalsy();
+  });
+
+  test("display missed shots", () => {
+    expect(gameBoard.missedShots()).toEqual(expect.any(Array));
   });
 });
