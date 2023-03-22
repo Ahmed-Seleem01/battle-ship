@@ -1,6 +1,6 @@
 const GameBoard = () => {
   const coordinatesArr = [];
-  const missedShots = [];
+  const missedShotsArr = [];
   function createGameBoard() {
     for (let i = 0; i < 10; i++) {
       const arr = [];
@@ -37,10 +37,12 @@ const GameBoard = () => {
       coordinatesArr[x][y].hit();
       return true;
     }
-    missedShots.push(arr);
+    missedShotsArr.push(arr);
     return false;
   }
 
-  return { createGameBoard, getGameBoard, placeShip, receiveAttack };
+  const missedShots = () => missedShotsArr; 
+
+  return { createGameBoard, getGameBoard, placeShip, receiveAttack, missedShots };
 };
 export { GameBoard };
