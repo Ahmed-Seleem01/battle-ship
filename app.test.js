@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { Ship } from "./src/components/Ship";
 import { GameBoard } from "./src/components/GameBoard";
+import { Player } from "./src/components/Player";
 
 describe("Test ship factory function", () => {
   const ship = Ship(1);
@@ -30,7 +31,7 @@ describe("Test ship factory function", () => {
   });
 });
 
-describe.only("Check GameBoard factory function", () => {
+describe("Check GameBoard factory function", () => {
   const gameBoard = GameBoard();
   const gameBoardArr = gameBoard.createGameBoard();
   test("check GameBoard instance", () => {
@@ -40,7 +41,7 @@ describe.only("Check GameBoard factory function", () => {
       placeShip: expect.any(Function),
       receiveAttack: expect.any(Function),
       missedShots: expect.any(Function),
-      allShipsSunk: expect.any(Function)
+      allShipsSunk: expect.any(Function),
     });
   });
 
@@ -83,7 +84,19 @@ describe.only("Check GameBoard factory function", () => {
   });
 
   test("check if the all ships are sunk", () => {
-    gameBoard.receiveAttack([1,3]);
+    gameBoard.receiveAttack([1, 3]);
     expect(gameBoard.allShipsSunk()).toBeTruthy();
+  });
+});
+
+describe.only("test Player factory function", () => {
+  test("check Player instance", () => {
+    const player = Player("ama");
+    expect(player).toEqual({ getPlayerName: expect.any(Function) });
+  });
+
+  test("check function to get player name", () => {
+    const player = Player("ama");
+    expect(player.getPlayerName()).toEqual("ama");
   });
 });
