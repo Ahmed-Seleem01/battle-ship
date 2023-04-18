@@ -1,13 +1,16 @@
+body{
+  text-align: center;
+}
 .main-container{
   display: flex;
   // flex-direction: column;
-  gap: 20px;
+  gap: 50px;
   align-items: center;
   justify-content: center;
   
   .player-container{
     display: grid;
-    grid-template: repeat(10, 40px) / repeat(10, 40px);
+    grid-template: repeat(10, 30px) / repeat(10, 30px);
     border: 3px solid;
     
     button{
@@ -19,5 +22,38 @@
 
   .computer-container{
     @extend .player-container;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
   }
+
+  .computer-container-appear{
+    opacity: 1;
+  }
+}
+
+.result{
+  // width: 100%;
+  font-size: 5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  
+}
+
+.show-result{
+  opacity: 1;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(4, 14, 56, 0.8);
+}
+
+@media (max-width: 500px) {
+  .main-container{
+    flex-direction: column;
+  }
+  
 }
