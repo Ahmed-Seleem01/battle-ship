@@ -10,6 +10,8 @@ const computerGameBoard = GameBoard();
 const gameBoard = playerGameBoard.createGameBoard();
 const cgameBoard = computerGameBoard.createGameBoard();
 
+let isPlayerShipsPlaced = false;
+
 function initializePlayerBoard() {
   const playerContainer = document.createElement("div");
   playerContainer.classList.add("player-container");
@@ -34,11 +36,15 @@ function initializePlayerBoard() {
     if(shipsArr.length > 0 && shipPlacement === true){
       shipsArr.splice(0,1);
       redrawBoard();
+
+      if(shipsArr.length <= 0){
+        isPlayerShipsPlaced = true;
+        initializeComputerBoard();  
+      }
     }
     else if(shipsArr.length > 0 && shipPlacement === false){
       console.log("enter ship in suitable place")
     }
-    
   }
   
 
@@ -56,6 +62,7 @@ function initializePlayerBoard() {
 
 }
 initializePlayerBoard();
+
 
 function initializeComputerBoard() {
   const computerContainer = document.createElement("div");
@@ -95,7 +102,6 @@ function initializeComputerBoard() {
 
   computerContainer.appendChild(fragment);
 }
-initializeComputerBoard();
 
 const cor = [];
 function attack(e) {
