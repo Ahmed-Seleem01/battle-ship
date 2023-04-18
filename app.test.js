@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { Ship } from "./src/components/Ship";
+import Ship  from "./src/components/Ship";
 import { GameBoard } from "./src/components/GameBoard";
 import { Player } from "./src/components/Player";
 

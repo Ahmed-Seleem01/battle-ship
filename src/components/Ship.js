@@ -14,4 +14,4 @@ const Ship = (shipLength) => {
 
   return { length, hit, isSunk };
 };
-export { Ship };
+export default Ship ;
