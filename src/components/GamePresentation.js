@@ -14,6 +14,7 @@ function initializePlayerBoard() {
   const playerContainer = document.createElement("div");
   playerContainer.classList.add("player-container");
   mainContainer.appendChild(playerContainer);
+  const fragment = document.createDocumentFragment();
 
   const ship1 = Ship(5);
   const ship2 = Ship(3);
@@ -35,9 +36,11 @@ function initializePlayerBoard() {
       if (item !== null) {
         square.style.backgroundColor = "black";
       }
-      playerContainer.appendChild(square);
+      fragment.appendChild(square);
     });
   });
+
+  playerContainer.appendChild(fragment);
 }
 initializePlayerBoard();
 
@@ -45,6 +48,7 @@ function initializeComputerBoard() {
   const computerContainer = document.createElement("div");
   computerContainer.classList.add("computer-container");
   mainContainer.appendChild(computerContainer);
+  const fragment = document.createDocumentFragment();
 
   const ship1 = Ship(5);
   const ship2 = Ship(3);
@@ -57,7 +61,7 @@ function initializeComputerBoard() {
   computerGameBoard.placeShip(ship3, [5, 3]);
   computerGameBoard.placeShip(ship4, [8, 6]);
   computerGameBoard.placeShip(ship5, [9, 0]);
-  
+
   cgameBoard.forEach((row, index) => {
     row.forEach((item, ind) => {
       const square = document.createElement("button");
@@ -66,9 +70,11 @@ function initializeComputerBoard() {
       // if (item !== null) {
       //   square.style.backgroundColor = "black";
       // }
-      computerContainer.appendChild(square);
+      fragment.appendChild(square);
     });
   });
+
+  computerContainer.appendChild(fragment);
 }
 initializeComputerBoard();
 
@@ -91,9 +97,9 @@ function attack(e) {
     let x = Math.floor(Math.random() * 10);
     let y = Math.floor(Math.random() * 10);
     console.log(x, y);
-    while(cor.some(item => (item[0] === x && item[1] === y))){
-    x = Math.floor(Math.random() * 10);
-    y = Math.floor(Math.random() * 10);
+    while (cor.some((item) => item[0] === x && item[1] === y)) {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
     }
 
     const arr = [x, y];
