@@ -5,6 +5,11 @@ import Ship  from "./Ship";
 const mainContainer = document.querySelector(".main-container");
 const result = document.querySelector(".result");
 
+const playerSection = document.createElement("div");
+mainContainer.appendChild(playerSection);
+const computerSection = document.createElement("div");
+mainContainer.appendChild(computerSection);
+
 const playerGameBoard = GameBoard();
 const computerGameBoard = GameBoard();
 const gameBoard = playerGameBoard.createGameBoard();
@@ -13,8 +18,11 @@ const cgameBoard = computerGameBoard.createGameBoard();
 
 function initializePlayerBoard() {
   const playerContainer = document.createElement("div");
+  const heading = document.createElement("h2");
+  heading.textContent = "Player";
   playerContainer.classList.add("player-container");
-  mainContainer.appendChild(playerContainer);
+  playerSection.appendChild(heading)
+  playerSection.appendChild(playerContainer);
   const fragment = document.createDocumentFragment();
 
   // Draw the board
@@ -64,8 +72,12 @@ initializePlayerBoard();
 
 function initializeComputerBoard() {
   const computerContainer = document.createElement("div");
+  const heading = document.createElement("h2");
+  heading.textContent = "Computer"
   computerContainer.classList.add("computer-container");
-  mainContainer.appendChild(computerContainer);
+  // computerContainer.classList.add("computer-container-appear");
+  computerSection.appendChild(heading);
+  computerSection.appendChild(computerContainer);
   const fragment = document.createDocumentFragment();
 
   function placeShips(){
@@ -113,6 +125,7 @@ function attack(e) {
   e.target.disabled = true;
   if (computerGameBoard.allShipsSunk()) {
     result.textContent = "you won";
+    result.classList.add("show-result")
   }
 
   function cattack() {
@@ -151,6 +164,7 @@ function attack(e) {
     square.disabled = true;
     if (playerGameBoard.allShipsSunk()) {
       result.textContent = "you lose";
+      result.classList.add("show-result")
     }
   }
   cattack();
