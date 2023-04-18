@@ -10,7 +10,6 @@ const computerGameBoard = GameBoard();
 const gameBoard = playerGameBoard.createGameBoard();
 const cgameBoard = computerGameBoard.createGameBoard();
 
-let isPlayerShipsPlaced = false;
 
 function initializePlayerBoard() {
   const playerContainer = document.createElement("div");
@@ -38,7 +37,6 @@ function initializePlayerBoard() {
       redrawBoard();
 
       if(shipsArr.length <= 0){
-        isPlayerShipsPlaced = true;
         initializeComputerBoard();  
       }
     }
@@ -77,8 +75,6 @@ function initializeComputerBoard() {
       let y = Math.floor(Math.random() * 10);
       const cor = [x,y];
       const shipPlacement = computerGameBoard.placeShip(Ship(shipsArr[0]), [+cor[0], +cor[1]]);
-      console.log(shipPlacement)
-      console.lo
       if(shipsArr.length > 0 && shipPlacement === true){
         shipsArr.splice(0,1);
       }
@@ -93,9 +89,9 @@ function initializeComputerBoard() {
       const square = document.createElement("button");
       square.dataset.position = `${index},${ind}`;
       square.addEventListener("click", attack);
-      if (item !== null) {
-        square.style.backgroundColor = "black";
-      }
+      // if (item !== null) {
+      //   square.style.backgroundColor = "black";
+      // }
       fragment.appendChild(square);
     });
   });
@@ -104,9 +100,10 @@ function initializeComputerBoard() {
 }
 
 const cor = [];
+let minimizeCor = [];
 function attack(e) {
   const arr = e.target.dataset.position.split(",");
-  console.log(arr);
+  // console.log(arr);
   const hit = computerGameBoard.receiveAttack(arr);
   if (hit) {
     e.target.style.backgroundColor = "green";
@@ -119,8 +116,16 @@ function attack(e) {
   }
 
   function cattack() {
-    let x = Math.floor(Math.random() * 10);
-    let y = Math.floor(Math.random() * 10);
+    let x = null;
+    let y = null;
+    if(minimizeCor.length > 0){
+      x = +minimizeCor[0];
+      y = +minimizeCor[1] + Math.floor(Math.random()) + 1;
+      if(y>9 ) y = y - 2;
+    }else{
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+    }
     console.log(x, y);
     while (cor.some((item) => item[0] === x && item[1] === y)) {
       x = Math.floor(Math.random() * 10);
@@ -137,8 +142,10 @@ function attack(e) {
 
     if (hit) {
       square.style.backgroundColor = "green";
+      minimizeCor = arr;
     } else {
       square.style.backgroundColor = "red";
+      minimizeCor = [];
     }
 
     square.disabled = true;
