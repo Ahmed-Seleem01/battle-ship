@@ -1,6 +1,6 @@
 import { GameBoard } from "./GameBoard";
 import "../styles/game.scss";
-import { Ship } from "./Ship";
+import Ship  from "./Ship";
 
 const mainContainer = document.querySelector(".main-container");
 const result = document.querySelector(".result");
@@ -16,31 +16,44 @@ function initializePlayerBoard() {
   mainContainer.appendChild(playerContainer);
   const fragment = document.createDocumentFragment();
 
-  const ship1 = Ship(5);
-  const ship2 = Ship(3);
-  const ship3 = Ship(2);
-  const ship4 = Ship(4);
-  const ship5 = Ship(3);
-
-  playerGameBoard.placeShip(ship1, [1, 1]);
-  playerGameBoard.placeShip(ship2, [3, 5]);
-  playerGameBoard.placeShip(ship3, [5, 3]);
-  playerGameBoard.placeShip(ship4, [8, 6]);
-  playerGameBoard.placeShip(ship5, [9, 0]);
-
   // Draw the board
   gameBoard.forEach((row, index) => {
     row.forEach((item, ind) => {
       const square = document.createElement("button");
       square.dataset.position = `${index},${ind}`;
-      if (item !== null) {
-        square.style.backgroundColor = "black";
-      }
+      square.addEventListener("click", placeShips)
       fragment.appendChild(square);
     });
   });
-
   playerContainer.appendChild(fragment);
+
+  const shipsArr = [5, 3, 2, 4, 3];
+  function placeShips(e){
+    const cor = e.target.dataset.position.split(",");
+    const shipPlacement = playerGameBoard.placeShip(Ship(shipsArr[0]), [+cor[0], +cor[1]]);
+    if(shipsArr.length > 0 && shipPlacement === true){
+      shipsArr.splice(0,1);
+      redrawBoard();
+    }
+    else if(shipsArr.length > 0 && shipPlacement === false){
+      console.log("enter ship in suitable place")
+    }
+    
+  }
+  
+
+  function redrawBoard(){
+    gameBoard.forEach((row, x) => {
+      row.forEach((item, y) => {
+        const square = document.querySelector(`.player-container button[data-position="${x},${y}"]`);
+        if (item) {
+          square.style.backgroundColor = "black";
+          return;
+        }
+      });
+    });
+  }
+
 }
 initializePlayerBoard();
 
@@ -50,26 +63,32 @@ function initializeComputerBoard() {
   mainContainer.appendChild(computerContainer);
   const fragment = document.createDocumentFragment();
 
-  const ship1 = Ship(5);
-  const ship2 = Ship(3);
-  const ship3 = Ship(2);
-  const ship4 = Ship(4);
-  const ship5 = Ship(3);
-
-  computerGameBoard.placeShip(ship1, [1, 1]);
-  computerGameBoard.placeShip(ship2, [3, 5]);
-  computerGameBoard.placeShip(ship3, [5, 3]);
-  computerGameBoard.placeShip(ship4, [8, 6]);
-  computerGameBoard.placeShip(ship5, [9, 0]);
-
+  function placeShips(){
+    const shipsArr = [5, 3, 2, 4, 3];
+    while(shipsArr.length > 0){
+      let x = Math.floor(Math.random() * 10);
+      let y = Math.floor(Math.random() * 10);
+      const cor = [x,y];
+      const shipPlacement = computerGameBoard.placeShip(Ship(shipsArr[0]), [+cor[0], +cor[1]]);
+      console.log(shipPlacement)
+      console.lo
+      if(shipsArr.length > 0 && shipPlacement === true){
+        shipsArr.splice(0,1);
+      }
+      else if(shipsArr.length > 0 && shipPlacement === false){
+        console.log("enter ship in suitable place")
+      } 
+    }
+  }
+  placeShips()
   cgameBoard.forEach((row, index) => {
     row.forEach((item, ind) => {
       const square = document.createElement("button");
       square.dataset.position = `${index},${ind}`;
       square.addEventListener("click", attack);
-      // if (item !== null) {
-      //   square.style.backgroundColor = "black";
-      // }
+      if (item !== null) {
+        square.style.backgroundColor = "black";
+      }
       fragment.appendChild(square);
     });
   });
